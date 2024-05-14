@@ -31,37 +31,58 @@ const emptyStudentObject = {
 export const Login = () => {
   const [isLoginForm, setIsLoginForm] = useState(true);
   const navigate = useNavigate();
- const { handleLogin, handleSignUp } = useAuth();
+ const { handleLogin, handleSignUp,LoggedIn } = useAuth();
   const [isRegisterForm, setIsRegisterForm] = useState(false);
 
   const [loggingData, setLoggingData] = useState(loggingCredentials);
   const [registerData, setRegisterData] = useState(emptyStudentObject);
   const toast = useToast();
 
+
+  //   e.preventDefault();
+  //   const toastShow = await handleLogin(loggingData);
+  //   if (toastShow.success) {
+  //     toast({
+  //       title: "Login Successful",
+  //       description: `Hi ${loggingData.email} Welcome Back`,
+  //       status: "success",
+  //       duration: 3000,
+  //       isClosable: true,
+  //     });
+  //     navigate("/");
+  //   } else {
+  //     toast({
+  //       title: "Login Failed",
+  //       description: "Wrong Credential",
+  //       status: "error",
+  //       duration: 3000,
+  //       isClosable: true,
+  //     });
+  //   }
+  //   setLoggingData(loggingCredentials)
+  //   console.log(loggingData);
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const toastShow = await handleLogin(loggingData);
-    if (toastShow.success) {
-      toast({
+    const toastShow = handleLogin(loggingData);
+    console.log(LoggedIn.isAdmin);
+    toast.promise(toastShow, {
+      success: {
         title: "Login Successful",
         description: `Hi ${loggingData.email} Welcome Back`,
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
-      // Redirect logic can be implemented here
-    } else {
-      toast({
-        title: "Login Failed",
-        description: "Wrong Credential",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-    }
-    setLoggingData(loggingCredentials)
-    console.log(loggingData);
+      },
+      error: { title: "Login Failed", description: "Wrong Credential" },
+      loading: { title: "Promise pending", description: "Please wait" },
+    });
+    console.log(LoggedIn.isAdmin);
+  
+      console.log(LoggedIn.isAdmin=="admin")
+     navigate("/")
+      // {LoggedIn.isAdmin!=="admin"?navigate("/"):navigate("/admin")}
+    // }
   };
+  
 
   const handleChange = (e) => {
     setLoggingData({ ...loggingData, [e.target.name]: e.target.value });
@@ -176,10 +197,6 @@ export const Login = () => {
 
           {isRegisterForm && (
             <form onSubmit={handleRegistration} style={{ width: "100%" }}>
-              {/* <Flex
-                direction={{ base: "column", md: "row" }}
-                alignItems="center"
-              > */}
               <FormControl id="username" mb={4} mr={{ md: 4 }}>
                 <FormLabel>Username</FormLabel>
                 <Input
