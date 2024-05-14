@@ -5,7 +5,7 @@ const subjects = mongoose.Schema({
     name :{type:String,unique:true},
     streamId : { type:Number, ref: 'streams'}
 },{versionKey:false})
-const SubjectModel = mongoose.model('subjects',subjects);
+const SubjectModel = mongoose.model('subject',subjects);
 
 
 module.exports={SubjectModel}

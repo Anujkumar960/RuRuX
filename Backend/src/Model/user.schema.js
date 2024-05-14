@@ -5,12 +5,12 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  stream: { type: String, required: true},
-  subject: { type: [Number], default: [] },
+  streamId: { type: Number, ref: 'streams', required: true},
+  subjectId: { type: [Number], ref: 'subjects', default: [] },
   role: { type: String, enum: ["student", "admin"], default: "student" },
 },{versionKey:false});
 
-const UserModel = mongoose.model("User", userSchema);
+const UserModel = mongoose.model("student", userSchema);
 
 module.exports = {UserModel};
 

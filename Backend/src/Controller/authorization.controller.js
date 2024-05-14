@@ -6,7 +6,7 @@ require("dotenv").config();
 
 //Signup Authentication
 const SignUp = async (req, res) => {
-  const {username,email,role,password,stream} = req.body;
+  const {username,email,role,password,streamId,subjectId} = req.body;
   try {
     // Checking if user already exists
     const user = await UserModel.findOne({ email });
@@ -22,7 +22,7 @@ const SignUp = async (req, res) => {
         }
     const userID=id;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUserFields = {userID,username,email,role,password: hashedPassword,stream};
+    const newUserFields = {userID,username,email,role,password: hashedPassword,streamId,subjectId};
     if(role) {
       newUserFields.role = role;
     }

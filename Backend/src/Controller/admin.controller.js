@@ -4,6 +4,7 @@ const { UserModel } = require("../Model/user.schema");
 const { StreamModel } = require("../Model/stream.model");
 const { SubjectModel } = require("../Model/subject.schema ");
 
+
 //for getting All Students 
 const getStudents=async(req,res)=>{
     try{
@@ -45,7 +46,7 @@ const getStudents=async(req,res)=>{
     }
 }
 
-//for getting Particular User Based On userID
+//for getting Particular Student Based On userID
 const singleStudent=async(req,res)=>{
     const { id } = req.params;
     try{
@@ -61,7 +62,7 @@ const singleStudent=async(req,res)=>{
 }
 
 
-//For Updating the User
+//For Updating the Student
 const updateStudent=async(req,res)=>{
     const { id } = req.params;
     try{
@@ -78,7 +79,7 @@ const updateStudent=async(req,res)=>{
 }
 
 
-//for Deleting the User
+//for Deleting the Student
 const deleteStudent=async(req,res)=>{
     const { id } = req.params;
     try{
@@ -97,7 +98,7 @@ const deleteStudent=async(req,res)=>{
 
 //For Adding Students in db by admin
 const AddStudents = async (req, res) => {
-  const {username,email,role,password,stream} = req.body;
+  const {username,email,role,password,streamId,subjectId} = req.body;
   try {
     // Checking if user already exists
     const user = await UserModel.findOne({ email });
@@ -113,7 +114,7 @@ const AddStudents = async (req, res) => {
         }
     const userID=id;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUserFields = {userID,username,email,role,password: hashedPassword,stream};
+    const newUserFields = {userID,username,email,role,password: hashedPassword,streamId,subjectId};
     if(role) {
       newUserFields.role = role;
     }
