@@ -22,10 +22,14 @@ const SignUp = async (req, res) => {
         }
     const userID=id;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUserFields = {userID,username,email,role,password: hashedPassword,streamId,subjectId};
-    if(role) {
-      newUserFields.role = role;
+    const details={userID,username,email,role,password:hashedPassword}
+    if(streamId){
+      details.streamId=streamId
     }
+    if(subjectId&&subjectId.length>0){
+      details.subjectId=subjectId;
+    }
+    const newUserFields = {...details};
     const newUser = new UserModel(newUserFields);
     // Saving the new user
     await newUser.save();
