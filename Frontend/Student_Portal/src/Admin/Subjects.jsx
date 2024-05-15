@@ -84,7 +84,7 @@ const SubjectList = () => {
 
   const fetchSubjects = async () => {
     try {
-      const { data } = await axios.get("http://localhost:4500/admin/subjects", {
+      const { data } = await axios.get("https://rurux.onrender.com/admin/subjects", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -103,7 +103,7 @@ const SubjectList = () => {
 
   const handleDeleteSubject = async (subjectId) => {
     try {
-      await axios.delete(`http://localhost:4500/admin/subjects/${subjectId}`, {
+      await axios.delete(`https://rurux.onrender.com/admin/subjects/${subjectId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -137,8 +137,8 @@ const SubjectList = () => {
   const handleSaveSubject = async () => {
     const method = currentSubject1.streamId ? "patch" : "post";
     const url = currentSubject1.streamId
-      ? `http://localhost:4500/admin/subjects/${currentSubject.streamId}`
-      : `http://localhost:4500/admin/subjects`;
+      ? `https://rurux.onrender.com/admin/subjects/${currentSubject.streamId}`
+      : `https://rurux.onrender.com/admin/subjects`;
     try {
       await axios[method](url, currentSubject, {
         headers: {

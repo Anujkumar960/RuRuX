@@ -22,7 +22,7 @@ const PerformancePage = () => {
           Authorization: `Bearer ${token}`,
         };
 
-        const response = await axios.get(`http://localhost:4500/student/${studentId}`, { headers });
+        const response = await axios.get(`https://rurux.onrender.com/student/${studentId}`, { headers });
         setPerformanceData(response.data);
         setLoading(false);
       } catch (error) {

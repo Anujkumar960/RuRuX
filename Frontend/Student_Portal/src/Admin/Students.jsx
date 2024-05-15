@@ -132,7 +132,7 @@ const StudentList = () => {
 
   const fetchStudents = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:4500/admin/students`, {
+      const { data } = await axios.get(`https://rurux.onrender.com/admin/students`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -152,7 +152,7 @@ const StudentList = () => {
 
   const handleDeleteStudent = async (userID) => {
     try {
-      await axios.delete(`http://localhost:4500/admin/students/${userID}`, {
+      await axios.delete(`https://rurux.onrender.com/admin/students/${userID}`, {
         // Add your authorization header here
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -186,8 +186,8 @@ const StudentList = () => {
     const method = currentStudent1.userID != "" ? "patch" : "post";
     const url =
       currentStudent1.userID != ""
-        ? `http://localhost:4500/admin/students/${currentStudent.userID}`
-        : `http://localhost:4500/admin/students`;
+        ? `https://rurux.onrender.com/admin/students/${currentStudent.userID}`
+        : `https://rurux.onrender.com/admin/students`;
     console.log(url, method);
     try {
       await axios[method](url, currentStudent, {

@@ -76,7 +76,7 @@ const StreamList = () => {
 
   const fetchStreams = async () => {
     try {
-      const { data } = await axios.get("http://localhost:4500/admin/streams", {
+      const { data } = await axios.get("https://rurux.onrender.com/admin/streams", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -95,7 +95,7 @@ const StreamList = () => {
 
   const handleDeleteStream = async (streamId) => {
     try {
-      await axios.delete(`http://localhost:4500/admin/streams/${streamId}`, {
+      await axios.delete(`https://rurux.onrender.com/admin/streams/${streamId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -127,8 +127,8 @@ const StreamList = () => {
   const handleSaveStream = async () => {
     const method = currentStream1.streamId ? "patch" : "post";
     const url = currentStream1.streamId
-      ? `http://localhost:4500/admin/streams/${currentStream.streamId}`
-      : `http://localhost:4500/admin/streams`;
+      ? `https://rurux.onrender.com/admin/streams/${currentStream.streamId}`
+      : `https://rurux.onrender.com/admin/streams`;
     try {
       await axios[method](url, currentStream, {
         headers: {

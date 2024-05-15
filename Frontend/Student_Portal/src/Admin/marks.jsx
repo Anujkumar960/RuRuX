@@ -105,7 +105,7 @@ const MarksList = () => {
 
   const fetchMarks = async () => {
     try {
-      const { data } = await axios.get("http://localhost:4500/admin/marks", {
+      const { data } = await axios.get("https://rurux.onrender.com/admin/marks", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -125,7 +125,7 @@ const MarksList = () => {
 
   const handleDeleteMark = async (markId) => {
     try {
-      await axios.delete(`http://localhost:4500/admin/marks/${markId}`, {
+      await axios.delete(`https://rurux.onrender.com/admin/marks/${markId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -157,8 +157,8 @@ const MarksList = () => {
   const handleSaveMark = async () => {
     const method = currentMark1.id ? "patch" : "post";
     const url = currentMark1.id
-      ? `http://localhost:4500/admin/marks/${currentMark.id}`
-      : `http://localhost:4500/admin/marks`;
+      ? `https://rurux.onrender.com/admin/marks/${currentMark.id}`
+      : `https://rurux.onrender.com/admin/marks`;
     try {
       await axios[method](url, currentMark, {
         headers: {
