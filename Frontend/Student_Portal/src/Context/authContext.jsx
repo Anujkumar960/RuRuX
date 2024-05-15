@@ -6,6 +6,8 @@ const userRes = {
   isAuth: false,
   token: "",
   isAdmin: "",
+  isStudent:"",
+  studentId:""
 };
 
 
@@ -27,7 +29,9 @@ export const AuthProvider = ({ children }) => {
           setLoggedIn({
             isAuth: true,
             token: res.data.token,
-            isAdmin: res.data.role,
+            isAdmin: res.data.isAdmin,
+            isStudent:res.data.isStudent,
+            studentId:res.data.userID
           });
         }
          console.log(res.data.token);

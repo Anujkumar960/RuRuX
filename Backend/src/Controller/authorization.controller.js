@@ -56,7 +56,17 @@ const logIn = async (req, res) => {
       if (result) {
         const token = jwt.sign(
           { email, role: user.role, userID: user.userID,username:user.username },process.env.SECRET_KEY,{ expiresIn: "1h" });
-          res.status(200).json({ token ,role: user.role});
+          let isAdmin = false;
+             let isStudent = false;
+
+             if (user.role === "admin") {
+               isAdmin = true;
+               isStudent = false; 
+             } else {
+               isAdmin = false;
+               isStudent = true;
+             }
+          res.status(200).json({ token ,role: user.role,userID: user.userID,isAdmin,isStudent});
       } else {
         return res.status(401).json({ msg: "please provide correct credential" });
       }

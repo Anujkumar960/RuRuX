@@ -1,39 +1,47 @@
+
 const { MarksModel } = require("../Model/marks.schema");
+const { StreamModel } = require("../Model/stream.model");
+const { SubjectModel } = require("../Model/subject.schema ");
 const { UserModel } = require("../Model/user.schema");
 
 const getPerformance = async (req, res) => {
     const studentId = req.params.id;
     try {
-        //finding students
-        const student = await UserModel.findOne({ userId: studentId });
+        // Finding student
+        const student = await UserModel.findOne({ userID: studentId });
         if (!student) {
             return res.status(404).json({ message: "Student not found" });
         }
+        console.log(student);
 
-        // Find all marks for the specified student
-        const resultCard = await MarksModel.find({ userId: studentId })
-            .populate('streamId') 
-            .populate('subjectId'); 
+        // Calculate total marks and gather subject details
+        let totalMarks = 0;
+        let subjectDetails = [];
+        const stream = await StreamModel.findOne({ streamId: student.streamId });
+        console.log(stream);
 
-        // If no marks found, return appropriate response
-        if (!resultCard || resultCard.length === 0) {
-            return res.status(404).json({ message: "No marks available for this student" });
+        for (const subjectId of student.subjectId) {
+            const marks = await MarksModel.findOne({ studentId, subjectId });
+            const subjectData = await SubjectModel.findOne({ subjectId });
+            if (marks && subjectData) {
+                totalMarks += marks.marks;
+                subjectDetails.push({ SubjectName: subjectData.name, marks: marks.marks });
+            }
         }
 
-        // Calculate total marks
-        let totalMarks = 0;
-        resultCard.forEach(mark => {
-            totalMarks += mark.marks;
-        });
+        console.log(totalMarks);
 
-        res.status(200).json({
-            studentId: student.userID,
-            username: student.username,
+        const performanceData = {
             email: student.email,
-            stream: student.stream,
-            resultCard: resultCard,
-            totalMarks: totalMarks
-        });
+            userName: student.username,
+            streamName: stream ? stream.name : 'Unknown',
+            totalMarks,
+            subjectDetails
+        };
+
+        console.log(performanceData);
+
+        res.status(200).json(performanceData);
     } catch (error) {
         console.error("Error fetching student performance:", error);
         res.status(500).json({ message: "Internal server error" });

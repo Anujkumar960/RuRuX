@@ -1,10 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Box, Flex, HStack, IconButton, useDisclosure, Stack, Button } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { useAuth } from '../Context/authContext';
 
-const Navbar = ({ isAdmin, isStudent }) => {
+export const Navbar= () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {LoggedIn,handleLogout} =useAuth();
+  const navigate=useNavigate();
+  
+  const handleClick = () => {
+    handleLogout();
+    navigate("/");
+  }
 
   return (
     <Box bg="gray.100" px={4}>
@@ -20,23 +28,28 @@ const Navbar = ({ isAdmin, isStudent }) => {
         <HStack spacing={8} alignItems="center">
           <Box as={Link} to="/" fontWeight="bold" fontSize="lg" color="blue.700" textDecoration="none">Student Portal Dashboard</Box>
           <HStack as="nav" spacing={4} display={{ base: 'none', md: 'flex' }}>
-            {isAdmin && (
-              <>
+            {LoggedIn.isAdmin && (
+              <> 
                 <Button as={Link} to="/admin/dashboard" _hover={{ bg: 'blue.500', color: 'white' }}>Dashboard</Button>
-                <Button as={Link} to="/admin/logout" _hover={{ bg: 'blue.500', color: 'white' }}>Logout</Button>
+                <Button as={Link} to="/admin/marks" _hover={{ bg: 'blue.500', color: 'white' }}>Student Marks</Button>
+
+                <Button as={Link} to="/admin/students" _hover={{ bg: 'blue.500', color: 'white' }}>Students</Button>
+
+                <Button as={Link} to="/admin/subjects" _hover={{ bg: 'blue.500', color: 'white' }}>Subject</Button>
+
+                <Button as={Link}  onClick={handleClick} _hover={{ bg: 'blue.500', color: 'white' }}>Logout</Button>
               </>
             )}
-            {isStudent && (
+            {LoggedIn.isStudent && (
               <>
-                <Button as={Link} to="/student/profile" _hover={{ bg: 'blue.500', color: 'white' }}>Profile</Button>
-                <Button as={Link} to="/student/performance" _hover={{ bg: 'blue.500', color: 'white' }}>Performance</Button>
-                <Button as={Link} to="/student/logout" _hover={{ bg: 'blue.500', color: 'white' }}>Logout</Button>
+                <Button  _hover={{ bg: 'blue.500', color: 'white' }}>Profile</Button>
+                <Button as={Link} to="/student/performance/" _hover={{ bg: 'blue.500', color: 'white' }}>Performance</Button>
+                <Button  onClick={handleClick} _hover={{ bg: 'blue.500', color: 'white' }}>Logout</Button>
               </>
             )}
-            {!isAdmin && !isStudent && (
+            {!LoggedIn.isAdmin && !LoggedIn.isStudent && (
               <>
-                <Button as={Link} to="/student/login" _hover={{ bg: 'blue.500', color: 'white' }}>Student Login</Button>
-                <Button as={Link} to="/admin/login" _hover={{ bg: 'blue.500', color: 'white' }}>Admin Login</Button>
+                <Button as={Link} to="/login" _hover={{ bg: 'blue.500', color: 'white' }}>Login</Button>
               </>
             )}
           </HStack>
@@ -77,4 +90,4 @@ const Navbar = ({ isAdmin, isStudent }) => {
   );
 };
 
-export default Navbar;
+

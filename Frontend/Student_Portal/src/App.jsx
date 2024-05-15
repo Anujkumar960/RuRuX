@@ -1,22 +1,17 @@
 
-import StudentList from './Admin/Students'
-import './App.css'
-import Navbar from './Component/Navbar'
-import StudentListPage from './Component/Studentlist'
-import UniversityDashboard from './Component/dashboard'
-import Footer from './Component/footer'
 
-import { Login } from './pages/Authentication'
+import './App.css'
+import MyProfilePage from './Component/profilepage'
+
+import { AllRoutes } from './Route/AllRoutes'
+
 
 function App() {
 
   return (
     <>
-    <Login/> 
-    {/* <StudentList/> */}
-    {/* <Navbar/>
-    <UniversityDashboard/>
-    <Footer/> */}
+    <AllRoutes/>
+    
     </>
   )
 }

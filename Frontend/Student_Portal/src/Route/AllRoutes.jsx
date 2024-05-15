@@ -1,26 +1,29 @@
-import React from 'react';
-import { Route, Routes} from 'react-router-dom';
-// import StreamsPage from './Admin/StreamsPage';
-// import SubjectsPage from './Admin/SubjectsPage';
-// import MarksPage from './Admin/MarksPage';
-// import StudentListPage from './Admin/StudentListPage';
-// import MyProfilePage from './Student/MyProfilePage';
-// import MyPerformancePage from './Student/MyPerformancePage';
-import StudentPortalDashboard from '../Component/dashboard';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+
+import StudentPortalDashboard from "../Component/dashboard";
+import { Login } from "../pages/Authentication";
+import StreamList from "../Admin/stream";
+import StudentList from "../Admin/Students";
+import SubjectList from "../Admin/Subjects";
+import MarksList from "../Admin/marks";
+import PerformancePage from "../Students/performancepage";
+
 
 export const AllRoutes = () => {
   return (
     <Routes>
-        <Route  path="/" component={<StudentPortalDashboard/>} />
-        {/* <Route path="/admin/streams" component={StreamsPage} />
-        <Route path="/admin/subjects" component={SubjectsPage} />
-        <Route path="/admin/marks" component={MarksPage} />
-        <Route path="/admin/student-list" component={StudentListPage} />
-
-        <Route path="/student/profile" component={MyProfilePage} />
-        <Route path="/student/performance" component={MyPerformancePage} /> */}
+      <Route path="/" element={<StudentPortalDashboard />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="admin/dashboard" element={<StreamList />} />
+      <Route path="admin/students" element={<StudentList />} />
+      <Route path="admin/subjects" element={<SubjectList />} />
+      <Route path="admin/marks" element={<MarksList />} />
+      <Route path="/student/performance" element={<PerformancePage/>} />
+      
     </Routes>
   );
 };
+
 
 
